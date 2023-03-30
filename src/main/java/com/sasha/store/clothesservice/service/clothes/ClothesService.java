@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -21,32 +22,44 @@ public class ClothesService implements IClothesServices{
 
     @PostConstruct
     private void loadData(){
-        for (int i = 0; i < 10000; i++) {
-            Clothes clothes = Clothes.builder()
-                    .name("NAME_" + i)
-                    .typeClothes(i % 2 == 0 ? TypeClothes.PANT : TypeClothes.JEANS)
-                    .price(new Random().nextDouble(0, 1000))
-                    .description("DESCRIPTION_" + i)
-                    .isAvailable(new Random().nextDouble(1, 2) == 2)
-                    .quantity(new Random().nextLong(0, 1000))
-                    .hasDiscount(new Random().nextDouble(1, 2) == 2)
-                    .size(i % 2 == 0 ? Size.S : Size.L)
-                    .build();
-            clothesRepository.save(clothes);
-        }
+        // Functional approach
+        IntStream.range(1, 9999)
+                .mapToObj(i -> Clothes.builder()
+                        .name("NAME_" + i)
+                        .typeClothes(i % 2 == 0 ? TypeClothes.PANT : TypeClothes.JEANS)
+                        .price(new Random().nextDouble(0, 1000))
+                        .description("DESCRIPTION_" + i)
+                        .isAvailable(new Random().nextDouble(1, 2) == 2)
+                        .quantity(new Random().nextLong(0, 1000))
+                        .hasDiscount(new Random().nextDouble(1, 2) == 2)
+                        .size(i % 2 == 0 ? Size.S : Size.L)
+                        .build())
+                .forEach(clothesRepository::save);
+        // Traditional or imperative approach
+        //for (int i = 0; i < 10000; i++) {
+        //    Clothes clothes = Clothes.builder()
+        //            .name("NAME_" + i)
+        //            .typeClothes(i % 2 == 0 ? TypeClothes.PANT : TypeClothes.JEANS)
+        //            .price(new Random().nextDouble(0, 1000))
+        //            .description("DESCRIPTION_" + i)
+        //            .isAvailable(new Random().nextDouble(1, 2) == 2)
+        //            .quantity(new Random().nextLong(0, 1000))
+        //            .hasDiscount(new Random().nextDouble(1, 2) == 2)
+        //            .size(i % 2 == 0 ? Size.S : Size.L)
+        //            .build();
+        //    clothesRepository.save(clothes);
+        //}
     }
 
 
     @Override
     public List<Clothes> getAllClothes() {
-        final List<Clothes> allClothes = clothesRepository.findAll();
-        return allClothes;
+        return clothesRepository.findAll();
     }
 
     @Override
     public List<Clothes> getAllTypeClothes(TypeClothes typeClothes) {
-        final List<Clothes> allClothes = clothesRepository.findAll();
-        return allClothes
+        return clothesRepository.findAll()
                 .stream()
                 .filter(clothes -> clothes.getTypeClothes().equals(typeClothes))
                 .filter(getClothesAmountAvailable())
@@ -55,14 +68,12 @@ public class ClothesService implements IClothesServices{
 
     @Override
     public List<Clothes> getAllAvailableClothes(Boolean isAvailable) {
-        List<Clothes> clothesByIsAvailable = clothesRepository.getClothesByIsAvailable(isAvailable);
-        return clothesByIsAvailable;
+        return clothesRepository.getClothesByIsAvailable(isAvailable);
     }
 
     @Override
     public List<Clothes> getAllHasDiscountClothes(Boolean hasDiscount) {
-        final List<Clothes> allClothes = clothesRepository.findAll();
-        return allClothes
+        return clothesRepository.findAll()
                 .stream()
                 .filter(getClothesCondition(hasDiscount))
                 .filter(getClothesAmountAvailable())
@@ -73,8 +84,7 @@ public class ClothesService implements IClothesServices{
 
     @Override
     public List<Clothes> getAllSizeClothes(Size size) {
-        final List<Clothes> allClothes = clothesRepository.findAll();
-        return allClothes
+        return clothesRepository.findAll()
                 .stream()
                 .filter(clothes -> clothes.getSize().equals(size))
                 .filter(getClothesAmountAvailable())

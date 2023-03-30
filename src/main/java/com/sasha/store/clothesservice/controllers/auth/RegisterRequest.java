@@ -2,18 +2,20 @@ package com.sasha.store.clothesservice.controllers.auth;
 
 
 import lombok.Builder;
-import lombok.Data;
+
+import lombok.Getter;
 
 
-
-@Data
-@Builder
+@Getter
 public class RegisterRequest extends AuthenticationRequest {
 
-    private String firstname;
-    private String lastname;
+    private final String firstname;
+    private final String lastname;
 
-    public RegisterRequest(String email, String password) {
+    @Builder
+    public RegisterRequest(String email, String password, String firstname, String lastname) {
         super(email, password);
+        this.firstname = firstname;
+        this.lastname = lastname;
     }
 }
