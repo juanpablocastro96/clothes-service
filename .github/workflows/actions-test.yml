@@ -29,3 +29,5 @@ jobs:
         run: terraform -help
       - name: Testing cd commands in GitHub Actions
         run: ls -la
+      - name: Testing bash file
+        run: bash test-file.sh
