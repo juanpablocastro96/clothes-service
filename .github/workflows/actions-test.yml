@@ -15,7 +15,7 @@ jobs:
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+      #- run: echo "🍏 This job's status is ${{ job.status }}."
       #steps:
       - name: Set up JDK 17
         uses: actions/setup-java@v3
@@ -24,7 +24,10 @@ jobs:
           distribution: 'temurin'
       - name: Build with Maven
         run: mvn --batch-mode --update-snapshots package
-      - name: Installing Terraform
-        run: sudo apt-get install terraform
+      #- name: Installing Terraform
+      - run: sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
+      - run: wget -O- https://apt.releases.hashicorp.com/gpg | \ gpg --dearmor | \ sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg
+      - run: sudo apt update
+      - run: sudo apt-get install terraform
       - name: Check Terraform installation
         run: terraform -help
