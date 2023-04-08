@@ -26,4 +26,4 @@ jobs:
       - name: Terraform installation
         uses: hashicorp/setup-terraform@v2
       - name: Checking Terraform installation
-        run: terraform show tfplan
+        run: terraform -help
