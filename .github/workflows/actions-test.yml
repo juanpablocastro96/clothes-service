@@ -11,7 +11,6 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
       #- run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      #- run: echo "🖥️ The workflow is now ready to test your code on the runner."
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
@@ -24,11 +23,7 @@ jobs:
           distribution: 'temurin'
       - name: Build with Maven
         run: mvn --batch-mode --update-snapshots package
-      #- name: Installing Terraform
-      #- run: sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
-      #- run: sudo wget -O- https://apt.releases.hashicorp.com/gpg | \ gpg --dearmor | \ sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg
-      #- run: sudo apt update && sudo apt install terraform
       - name: Terraform installation
         uses: hashicorp/setup-terraform@v2
       - name: Checking Terraform installation
-        run: terraform -help
+        run: terraform show tfplan
