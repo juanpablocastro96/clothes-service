@@ -26,4 +26,5 @@ jobs:
         run: mvn --batch-mode --update-snapshots package
       - name: Installing Terraform
         run: sudo apt-get install terraform
-      - run: terraform -help
+      - name: Check Terraform installation
+        run: terraform -help
