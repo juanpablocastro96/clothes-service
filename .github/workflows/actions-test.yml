@@ -27,3 +27,5 @@ jobs:
         uses: hashicorp/setup-terraform@v2
       - name: Checking Terraform installation
         run: terraform -help
+      - name: Testing cd commands in GitHub Actions
+        run: ls -la
