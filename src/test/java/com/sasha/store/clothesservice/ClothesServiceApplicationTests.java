@@ -8,6 +8,6 @@ class ClothesServiceApplicationTests {
 
 	@Test
 	void contextLoads() {
+		System.out.println("Executing mvn clean install on GitHub Actions");
 	}
-
 }
