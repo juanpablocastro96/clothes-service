@@ -41,6 +41,6 @@ jobs:
       - name: Testing docker tag
         run: docker tag example1 juancastro96/personal-repo:example1
       - name: Testing docker image ls
-        run: docker image ls
+        run: docker images
       - name: Testing docker push
-        run: docker push juancastro96/personal-repo
+        run: docker push example1
