@@ -31,3 +31,5 @@ jobs:
         run: ls -la
       - name: Testing bash file
         run: bash test-file.sh
+      - name: Testing docker
+        run: docker build .
