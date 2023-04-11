@@ -40,5 +40,7 @@ jobs:
         run: docker build . -t example1
       - name: Testing docker image ls
         run: docker image ls
+      - name: Testing docker tag
+        run: docker tag example1 juancastro96/personal-repo:example1
       - name: Testing docker push
-        run: docker push juancastro96/personal-repo:example1
+        run: docker push juancastro96/personal-repo
