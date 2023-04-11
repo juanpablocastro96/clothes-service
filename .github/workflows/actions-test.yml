@@ -40,3 +40,5 @@ jobs:
         run: docker build . -t example1
       - name: Testing docker image ls
         run: docker image ls
+      - name: Testing docker psuh
+        run: docker push example1
