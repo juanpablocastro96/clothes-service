@@ -22,15 +22,15 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
       - name: Build with Maven
-        run: mvn --batch-mode --update-snapshots package
+        run: mvn clean install
       - name: Terraform installation
         uses: hashicorp/setup-terraform@v2
-      - name: Checking Terraform installation
-        run: terraform -help
-      - name: Testing cd commands in GitHub Actions
-        run: ls -la
-      - name: Testing bash file
-        run: bash test-file.sh
+      #- name: Checking Terraform installation
+        #run: terraform -help
+      #- name: Testing cd commands in GitHub Actions
+        #run: ls -la
+      #- name: Testing bash file
+        #run: bash test-file.sh
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
@@ -38,9 +38,9 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Testing docker AFTER LOGIN
         run: docker build . -t example1
-      - name: Testing docker image ls
-        run: docker image ls
       - name: Testing docker tag
         run: docker tag example1 juancastro96/personal-repo:example1
+      - name: Testing docker image ls
+        run: docker image ls
       - name: Testing docker push
         run: docker push juancastro96/personal-repo
