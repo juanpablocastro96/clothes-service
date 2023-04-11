@@ -38,3 +38,5 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Testing docker AFTER LOGIN
         run: docker build .
+      - name: Testing docker image ls
+        run: docker image ls
