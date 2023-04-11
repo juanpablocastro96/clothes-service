@@ -43,4 +43,4 @@ jobs:
       - name: Testing docker image ls
         run: docker images
       - name: Testing docker push
-        run: docker push example1
+        run: docker push juancastro96/personal-repo:example1
