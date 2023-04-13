@@ -5,7 +5,7 @@ jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "🎉 ${{ github.sha }} event."
+      #- run: echo "🎉 ${{ github.sha }} event."
       #- run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       #- run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
       - name: Check out repository code
@@ -27,8 +27,6 @@ jobs:
         uses: hashicorp/setup-terraform@v2
       #- name: Checking Terraform installation
         #run: terraform -help
-      #- name: Testing cd commands in GitHub Actions
-        #run: ls -la
       #- name: Testing bash file
         #run: bash test-file.sh
       - name: Login to Docker Hub
@@ -36,11 +34,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      #- name: Testing docker AFTER LOGIN
-        #run: docker build . -t juancastro96/personal-repo:{{}}
-     # - name: Testing docker tag
-      #  run: docker tag example1 juancastro96/personal-repo:example1
-      #- name: Testing docker image ls
-        #run: docker images/ docker ps
-      #- name: Testing docker push
-        #run: docker push juancastro96/personal-repo:example5
+      - name: Testing docker AFTER LOGIN
+        run: docker build . -t juancastro96/personal-repo:${{ github.ref }}${{ github.sha }}
+      - name: Testing docker push
+        run: docker push juancastro96/personal-repo:${{ github.ref }}${{ github.sha }}
