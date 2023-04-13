@@ -23,7 +23,7 @@ public class ClothesService implements IClothesServices{
     @PostConstruct
     private void loadData(){
         // Functional approach
-        IntStream.range(1, 9999)
+        IntStream.range(1, 99)
                 .mapToObj(i -> Clothes.builder()
                         .name("NAME_" + i)
                         .typeClothes(i % 2 == 0 ? TypeClothes.PANT : TypeClothes.JEANS)
