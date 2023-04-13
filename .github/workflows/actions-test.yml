@@ -35,6 +35,9 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Testing docker AFTER LOGIN
-        run: docker build . -t juancastro96/personal-repo:${{ github.repository }}${{ github.sha }}
+        run: docker build . -t juancastro96/personal-repo:${{ github.ref_name }}${{ github.sha }}
       - name: Testing docker push
-        run: docker push juancastro96/personal-repo:${{ github.repository }}${{ github.sha }}
+        run: docker push juancastro96/personal-repo:${{ github.ref_name }}${{ github.sha }}
+
+# See the following page to find all the option for ${{ github.* }}
+#https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
