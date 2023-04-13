@@ -37,10 +37,10 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Testing docker AFTER LOGIN
-        run: docker build . -t juancastro96/personal-repo:example2
+        run: docker build . -t juancastro96/personal-repo:example3
      # - name: Testing docker tag
       #  run: docker tag example1 juancastro96/personal-repo:example1
       #- name: Testing docker image ls
         #run: docker images/ docker ps
       - name: Testing docker push
-        run: docker push juancastro96/personal-repo:example2
+        run: docker push juancastro96/personal-repo:example3
