@@ -10,7 +10,7 @@ jobs:
       #- run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
       - name: Check out repository code
         uses: actions/checkout@v3
-      #- run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
@@ -35,6 +35,6 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Testing docker AFTER LOGIN
-        run: docker build . -t juancastro96/personal-repo:${{ github.ref }}${{ github.sha }}
+        run: docker build . -t juancastro96/personal-repo:${{ github.repository }}${{ github.sha }}
       - name: Testing docker push
-        run: docker push juancastro96/personal-repo:${{ github.ref }}${{ github.sha }}
+        run: docker push juancastro96/personal-repo:${{ github.repository }}${{ github.sha }}
