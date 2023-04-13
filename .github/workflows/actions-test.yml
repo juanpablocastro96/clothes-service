@@ -5,7 +5,7 @@ jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "🎉 ${{ github }} event."
+      - run: echo "🎉 ${{ github.hash }} event."
       #- run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       #- run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
       - name: Check out repository code
@@ -43,4 +43,4 @@ jobs:
       #- name: Testing docker image ls
         #run: docker images/ docker ps
       - name: Testing docker push
-        run: docker push juancastro96/personal-repo:example1
+        run: docker push juancastro96/personal-repo:example2
