@@ -1,6 +1,10 @@
+#This GH Actions is just for testing purposes. Here you will see lots of comments without cleaning the code or refactoring it.
+
 name: GitHub Actions Demo
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [push]
+on:
+  branches:
+    -
 jobs:
   Explore-GitHub-Actions:
     name: Testing GitHub Actions
@@ -53,7 +57,8 @@ jobs:
       - name: Testing docker push action
         uses: docker/build-push-action@v4
         with:
-          #context: .
+          # This context is required due our dockerfile is within the main folder
+          context: .
           push: true
           tags: juancastro96/personal-repo:example-${{ github.sha }}
 
