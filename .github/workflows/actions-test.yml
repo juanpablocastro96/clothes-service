@@ -51,6 +51,7 @@ jobs:
       - name: Testing docker push action
         uses: docker/build-push-action@v4
         with:
+          context: .
           push: true
           tags: example-tag:${{ github.sha }}
 
