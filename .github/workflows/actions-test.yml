@@ -22,6 +22,7 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+
       - name: Build with Maven
         run: mvn clean install
       - name: Terraform installation
@@ -35,6 +36,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+
       - name: Testing docker AFTER LOGIN
         run: docker build . -t juancastro96/personal-repo:${{ github.sha }}
         #run: docker build . -t juancastro96/personal-repo:${{ github.sha }}
@@ -50,7 +52,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tag: example-tag:${{ github.sha }}
+          tags: example-tag:${{ github.sha }}
 
 # See the following page to find all the option for ${{ github.* }}
 #https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
