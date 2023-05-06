@@ -3,8 +3,11 @@
 name: GitHub Actions Demo
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on:
-  branches:
-    -
+  push:
+    branches:
+      # Here you can put your branch name in order to test the following actions
+      -
+
 jobs:
   Explore-GitHub-Actions:
     name: Testing GitHub Actions
