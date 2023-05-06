@@ -32,6 +32,7 @@ jobs:
       #- name: Testing bash file
         #run: bash test-file.sh
 
+      # TIP: The buildx must be before the others docker actions.
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
@@ -52,7 +53,7 @@ jobs:
       - name: Testing docker push action
         uses: docker/build-push-action@v4
         with:
-          context: .
+          #context: .
           push: true
           tags: juancastro96/personal-repo:example-${{ github.sha }}
 
