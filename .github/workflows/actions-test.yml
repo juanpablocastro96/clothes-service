@@ -6,7 +6,7 @@ on:
   push:
     branches:
       # Here you can put your branch name in order to test the following actions
-      -
+      - your-branch-name
 
 jobs:
   Explore-GitHub-Actions:
