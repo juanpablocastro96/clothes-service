@@ -1,8 +1,16 @@
+#This GH Actions is just for testing purposes. Here you will see lots of comments without cleaning the code or refactoring it.
+
 name: GitHub Actions Demo
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [push]
+on:
+  push:
+    branches:
+      # Here you can put your branch name in order to test the following actions
+      - your-branch-name
+
 jobs:
   Explore-GitHub-Actions:
+    name: Testing GitHub Actions
     runs-on: ubuntu-latest
     steps:
       #- run: echo "🎉 ${{ github.sha }} event."
@@ -21,6 +29,7 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+
       - name: Build with Maven
         run: mvn clean install
       - name: Terraform installation
@@ -29,17 +38,32 @@ jobs:
         #run: terraform -help
       #- name: Testing bash file
         #run: bash test-file.sh
+
+      # TIP: The buildx must be before the others docker actions.
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Testing docker AFTER LOGIN
-        run: docker build . -t juancastro96/personal-repo:${{ github.sha }}
+
+      #- name: Testing docker AFTER LOGIN
+       # run: docker build . -t juancastro96/personal-repo:${{ github.sha }}
         #run: docker build . -t juancastro96/personal-repo:${{ github.sha }}
-      - name: Testing docker push
-        run: docker push juancastro96/personal-repo:${{ github.sha }}
+
+     # - name: Testing docker push
+      #  run: docker push juancastro96/personal-repo:${{ github.sha }}
         #run: docker push juancastro96/personal-repo:${{ github.ref_name }}${{ github.sha }}
+
+      - name: Testing docker push action
+        uses: docker/build-push-action@v4
+        with:
+          # This context is required due our dockerfile is within the main folder
+          context: .
+          push: true
+          tags: juancastro96/personal-repo:example-${{ github.sha }}
 
 # See the following page to find all the option for ${{ github.* }}
 #https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
