@@ -3,6 +3,7 @@ run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
 jobs:
   Explore-GitHub-Actions:
+    name: Testing GitHub Actions
     runs-on: ubuntu-latest
     steps:
       #- run: echo "🎉 ${{ github.sha }} event."
@@ -37,9 +38,19 @@ jobs:
       - name: Testing docker AFTER LOGIN
         run: docker build . -t juancastro96/personal-repo:${{ github.sha }}
         #run: docker build . -t juancastro96/personal-repo:${{ github.sha }}
+
       - name: Testing docker push
         run: docker push juancastro96/personal-repo:${{ github.sha }}
         #run: docker push juancastro96/personal-repo:${{ github.ref_name }}${{ github.sha }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Testing docker push action
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          tag: example-tag:${{ github.sha }}
 
 # See the following page to find all the option for ${{ github.* }}
 #https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
